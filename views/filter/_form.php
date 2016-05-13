@@ -1,0 +1,40 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Settings */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="filter-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <?= $form->field($model, 'relation_field_value')->dropdownList(
+                    Yii::$app->getModule('filter')->relationFieldValues,
+                    [
+                        'style' => 'height: 250px;',
+                        'multiple' => 'true'
+                    ]) ?>
+
+            <?= $form->field($model, 'model_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationModel])->label(false); ?>
+            <?= $form->field($model, 'relation_field_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationFieldName])->label(false); ?>
+        </div>
+        <div class="col-lg-6">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'type')->dropdownList(Yii::$app->getModule('filter')->types) ?>
+            <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
+        </div>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
