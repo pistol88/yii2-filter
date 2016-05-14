@@ -16,7 +16,7 @@ class m160513_121415_Mass extends Migration
         }
         
         $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
+
         try {
             $this->createTable('{{%filter}}', [
                 'id' => Schema::TYPE_PK . "",
@@ -41,16 +41,8 @@ class m160513_121415_Mass extends Migration
                 'item_id' => Schema::TYPE_INTEGER . "(11)",
                 ], $tableOptions);
 
-            $this->createIndex('variant_id', '{{%filter_value}}', 'variant_id,item_id', 1);
-            
-            $this->addForeignKey(
-                'fk_variant', '{{%filter_value}}', 'variant_id', '{{%filter_variant}}', 'id', 'CASCADE', 'CASCADE'
-            );
-            
-            $this->addForeignKey(
-                'fk_filter', '{{%filter_value}}', 'filter_id', '{{%filter}}', 'id', 'CASCADE', 'CASCADE'
-            );
-            
+            $this->createIndex('variant_item', '{{%filter_value}}', 'variant_id,item_id', 1);
+
             $this->createTable('{{%filter_variant}}', [
                 'id' => Schema::TYPE_PK . "",
                 'filter_id' => Schema::TYPE_INTEGER . "(11) NOT NULL",
@@ -58,27 +50,33 @@ class m160513_121415_Mass extends Migration
                 'numeric_value' => Schema::TYPE_INTEGER . "(11) NOT NULL",
                 ], $tableOptions);
 
-            $this->createIndex('filter_id', '{{%filter_variant}}', 'filter_id', 0);
-            $transaction->commit();
+            $this->addForeignKey(
+                'fk_variant', '{{%filter_value}}', 'variant_id', '{{%filter_variant}}', 'id', 'CASCADE', 'CASCADE'
+            );
+            
+            $this->addForeignKey(
+                'fk_filter', '{{%filter_variant}}', 'filter_id', '{{%filter}}', 'id', 'CASCADE', 'CASCADE'
+            );
+            
+            $this->addForeignKey(
+                'fk_filter', '{{%filter_value}}', 'filter_id', '{{%filter}}', 'id', 'CASCADE', 'CASCADE'
+            );
+            
         } catch (Exception $e) {
-            echo 'Catch Exception ' . $e->getMessage() . ' and rollBack this';
-            $transaction->rollBack();
+            echo 'Catch Exception "' . $e->getMessage() . '" and rollBack this';
         }
     }
 
     public function safeDown()
     {
         $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
         try {
             $this->dropTable('{{%filter}}');
             $this->dropTable('{{%filter_relation_value}}');
             $this->dropTable('{{%filter_value}}');
             $this->dropTable('{{%filter_variant}}');
-            $transaction->commit();
         } catch (Exception $e) {
             echo 'Catch Exception ' . $e->getMessage() . ' and rollBack this';
-            $transaction->rollBack();
         }
     }
 
