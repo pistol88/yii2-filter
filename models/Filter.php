@@ -78,6 +78,7 @@ class Filter extends \yii\db\ActiveRecord
 
             $this->relation_field_value = serialize($values);
         }
+        
         return true;
     }
     

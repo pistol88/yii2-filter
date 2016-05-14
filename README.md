@@ -1,5 +1,7 @@
 Yii2-filter
 ==========
+Внимание: модуль в глубокой разработке, использовать на свой страх и риск.
+
 Модуль позволит добавлять опции для любой вашей модели в админке, а снаружи фильтровать результаты выдачи по выбранным опциям.
 
 Функционал:
@@ -114,12 +116,12 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 Получить опции и их значения из модели, в которой есть поведение AttachFilterValues:
 ```php
 
-<?php if($filters = $model->getFilters()) { ?>
-    <?php foreach($filters as $filter) { ?>
-        <p>
-            <strong><?=$filter->name;?></strong>: <?=implode(', ', $filter->variants);?>
-        </p>
-    <?php } ?> 
+<?php if($filters = $model->getSelectedFilters()) {?>
+        <?php foreach($filters as $filter_name => $filter_values) { ?>
+                <p>
+                        <strong><?=$filter_name;?></strong>: <?=implode(', ', $filter_values);?>
+                </p>
+        <?php } ?> 
 <?php } ?>
 
 ```

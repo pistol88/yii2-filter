@@ -67,6 +67,21 @@ class AttachFilterValues extends Behavior
         return $return;
     }
 
+	public function getSelectedFilters()
+    {
+		$return = [];
+		$variantFilters = $this->owner->filterVariants();
+		foreach($this->owner->getFilters() as $filter) {
+			foreach($filter->getVariants() as $variant) {
+				if(isset($variantFilters[$variant->id])) {
+				    $return[$filter->name][] = $variant->value;
+				}
+			}
+		}
+
+		return $return;
+	}
+    
     public function getFilterData()
     {
         return "data-filter-variants='".json_encode($this->filterVariants())."'";
