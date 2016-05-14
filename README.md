@@ -59,12 +59,6 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
                                 if($category2->parent_id == $category->id) {
                                     $category2->name = ' --- '.$category2->name;
                                     $return[] = $category2;
-                                    foreach($categories as $category3) {
-                                        if($category3->parent_id == $category2->id) {
-                                            $category3->name = ' ------ '.$category3->name;
-                                            $return[] = $category3;
-                                        }
-                                    }
                                 }
                             }
                        }
