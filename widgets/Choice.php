@@ -89,7 +89,7 @@ class Choice extends \yii\base\Widget
         }
 
         $new = [];
-        $new[] = Html::input('text', 'variant_value', '', ['data-filter-id' => $filter->id, 'data-create-action' => Url::toRoute(['/filter/filter-variant/create']), 'class' => ' form-control', 'placeholder' => '']);
+        $new[] = Html::input('text', 'variant_value', '', ['placeholder' => 'Новый вариант', 'data-filter-id' => $filter->id, 'data-create-action' => Url::toRoute(['/filter/filter-variant/create']), 'class' => ' form-control']);
         $new[] = Html::button(Html::tag('i', '', ['class' => 'glyphicon glyphicon-plus']), ['class' => 'btn btn-success']);
         
         $variants[] = Html::tag('div', implode('', $new), ['class' => 'new-variant']);

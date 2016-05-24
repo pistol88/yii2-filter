@@ -62,7 +62,7 @@ class FilterValueController extends Controller
         else {
             $filter = Filter::findOne($model->filter_id);
             if($filter->type == 'radio') {
-                FilterValue::deleteAll(['item_id' => $post['item_id']]);
+                FilterValue::deleteAll(['item_id' => $post['item_id'], 'filter_id' => $post['filter_id']]);
                 $model = new FilterValue;
             }
         }
@@ -82,12 +82,9 @@ class FilterValueController extends Controller
     {
         $itemId = yii::$app->request->post('item_id');
         $variantId = yii::$app->request->post('variant_id');
-        
-        if(!$variantId) {
-            FilterValue::deleteAll(['item_id' => $itemId]);
-        }
-        else {
-            FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()->delete();
+
+        if($value = FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()) {
+            $value->delete();
         }
 
         return json_encode(['result' => 'success']);
