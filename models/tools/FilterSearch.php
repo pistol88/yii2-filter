@@ -12,7 +12,7 @@ class FilterSearch extends Filter
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'slug', 'type'], 'safe'],
         ];
     }
 
@@ -37,9 +37,11 @@ class FilterSearch extends Filter
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'type' => $this->type,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;
     }

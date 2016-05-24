@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 
 class Filter extends \yii\db\ActiveRecord
 {
-
     public static function tableName()
     {
         return '{{%filter}}';
@@ -16,8 +15,8 @@ class Filter extends \yii\db\ActiveRecord
 
     public function rules() {
         return [
-            [['name'], 'required'],
-            [['name', 'type', 'relation_field_name', 'model_name', 'description'], 'string'],
+            [['name', 'slug'], 'required'],
+            [['name', 'type', 'relation_field_name', 'model_name', 'description', 'slug'], 'string'],
         ];
     }
 
@@ -26,8 +25,9 @@ class Filter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Имя',
+            'slug' => 'Код',
             'description' => 'Описание',
-            'type' => 'Тип',
+            'type' => 'Тип полей',
             'model_name' => 'Группа',
             'relation_field_name' => 'Название поля',
             'relation_field_value' => 'Привязать к'
@@ -36,7 +36,7 @@ class Filter extends \yii\db\ActiveRecord
 
     public function getVariants()
     {
-        return $this->hasMany(FilterVariant::className(), ['filter_id' => 'id'])->all();
+        return $this->hasMany(FilterVariant::className(), ['filter_id' => 'id']);
     }
 
     public function getSelected()
@@ -56,6 +56,7 @@ class Filter extends \yii\db\ActiveRecord
         foreach ($this->hasMany(FieldRelationValue::className(), ['filter_id' => 'id'])->all() as $frv) {
             $frv->delete();
         }
+        
         foreach ($this->hasMany(FilterVariant::className(), ['filter_id' => 'id'])->all() as $fv) {
             $fv->delete();
         }
@@ -77,6 +78,9 @@ class Filter extends \yii\db\ActiveRecord
             }
 
             $this->relation_field_value = serialize($values);
+        }
+        else {
+            $this->relation_field_value = serialize([]);
         }
         
         return true;

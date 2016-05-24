@@ -3,9 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Settings */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="filter-form">
@@ -14,11 +11,10 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-lg-6">
-
             <?= $form->field($model, 'relation_field_value')->dropdownList(
                     Yii::$app->getModule('filter')->relationFieldValues,
                     [
-                        'style' => 'height: 250px;',
+                        'style' => 'height: 290px;',
                         'multiple' => 'true'
                     ]) ?>
 
@@ -26,7 +22,8 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'relation_field_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationFieldName])->label(false); ?>
         </div>
         <div class="col-lg-6">
-            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'name')->textInput() ?>
+            <?= $form->field($model, 'slug')->textInput() ?>
             <?= $form->field($model, 'type')->dropdownList(Yii::$app->getModule('filter')->types) ?>
             <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
             <div class="form-group">

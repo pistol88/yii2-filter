@@ -10,12 +10,44 @@ use pistol88\filter\models\FilterValue;
 class AttachFilterValues extends Behavior
 {
     private $filterVariants = null;
+    private $filterOptions = null;
 
     public function events()
     {
         return [
             ActiveRecord::EVENT_BEFORE_DELETE => 'deleteValues',
         ];
+    }
+    
+    public function checkedId($id)
+    {
+        $variantFilters = $this->filterVariants();
+        if(isset($variantFilters[$id])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getOption($code)
+    {
+        if(is_array($this->filterOptions[$code])) {
+            return $this->filterOptions[$code];
+        }
+        
+        if($filter = Filter::findOne(['slug' => $code])) {
+            $values = FilterValue::findAll(['filter_id' => $filter->id, 'item_id' => $this->owner->id]);
+
+            foreach($values as $value) {
+                $this->filterOptions[$filter->slug][] = $value->variant->value;
+            }
+        }
+        
+        if(!isset($this->filterOptions[$code])) {
+            return [];
+        }
+        
+        return $this->filterOptions[$code];
     }
     
     public function filterVariants()
@@ -34,8 +66,7 @@ class AttachFilterValues extends Behavior
             }
 
             return $this->filterVariants;
-        }
-        else {
+        } else {
             return [];
         }
     }
@@ -67,12 +98,12 @@ class AttachFilterValues extends Behavior
         return $return;
     }
 
-    public function getSelectedFilters()
+    public function getOptions()
     {
         $return = [];
         $variantFilters = $this->owner->filterVariants();
-        foreach($this->owner->getFilters() as $filter) {
-            foreach($filter->getVariants() as $variant) {
+        foreach($this->owner->filters as $filter) {
+            foreach($filter->variants as $variant) {
                 if(isset($variantFilters[$variant->id])) {
                     $return[$filter->name][] = $variant->value;
                 }

@@ -3,6 +3,7 @@ namespace pistol88\filter\controllers;
 
 use yii;
 use pistol88\filter\models\FilterValue;
+use pistol88\filter\models\Filter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -49,12 +50,45 @@ class FilterValueController extends Controller
         return json_encode($json);
     }
 
+    public function actionUpdate()
+    {
+        $post = yii::$app->request->post('FilterValue');
+
+        $model = FilterValue::findOne(['item_id' => $post['item_id'], 'filter_id' => $post['filter_id']]);
+        
+        if(!$model) {
+            $model = new FilterValue;
+        }
+        else {
+            $filter = Filter::findOne($model->filter_id);
+            if($filter->type == 'radio') {
+                FilterValue::deleteAll(['item_id' => $post['item_id']]);
+                $model = new FilterValue;
+            }
+        }
+
+        $json = [];
+
+        if ($model->load(yii::$app->request->post()) && $model->save()) {
+            $json['result'] = 'success';
+        } else {
+            $json['result'] = 'fail';
+        }
+
+        return json_encode($json);
+    }
+    
     public function actionDelete()
     {
         $itemId = yii::$app->request->post('item_id');
         $variantId = yii::$app->request->post('variant_id');
-
-        FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()->delete();
+        
+        if(!$variantId) {
+            FilterValue::deleteAll(['item_id' => $itemId]);
+        }
+        else {
+            FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()->delete();
+        }
 
         return json_encode(['result' => 'success']);
     }

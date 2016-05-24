@@ -19,3 +19,8 @@
     width: 200px;
     display: inline;
 }
+
+.pistol88-filter .row {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 3px;
+}

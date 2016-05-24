@@ -115,14 +115,16 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 ---------------------------------
 Получить опции и их значения из модели, в которой есть поведение AttachFilterValues:
 ```php
-
-<?php if($filters = $model->getSelectedFilters()) {?>
-        <?php foreach($filters as $filter_name => $filter_values) { ?>
-                <p>
-                        <strong><?=$filter_name;?></strong>: <?=implode(', ', $filter_values);?>
-                </p>
-        <?php } ?> 
+<?php if($filters = $model->getOptions()) {?>
+    <?php foreach($filters as $filter_name => $filter_values) { ?>
+        <p>
+            <strong><?=$filter_name;?></strong>: <?=implode(', ', $filter_values);?>
+        </p>
+    <?php } ?> 
 <?php } ?>
+
+Получить значения одной опции по коду:
+<?=implode(', ', $model->getOption('code'));?>
 
 ```
 

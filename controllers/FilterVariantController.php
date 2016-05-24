@@ -56,12 +56,23 @@ class FilterVariantController extends Controller
             $json = [];
             $model = new FilterVariant();
 
-            if ($model->load(yii::$app->request->post()) && $model->save()) {
+            $post = yii::$app->request->post('FilterVariant');
+            //Если такой вариант уже есть у этого товара, просто выставляем его выделение
+            if($have = $model::find()->where(['value' => $post['value'], 'filter_id' => $post['filter_id']])->one()) {
                 $json['result'] = 'success';
-                $json['id'] = $model->id;
-            }
-            else {
-                $json['result'] = 'fail';
+                $json['value'] = $have->value;
+                $json['id'] = $have->id;
+                $json['new'] = false;
+            //Если варианта нет, создаем
+            } else {
+                if ($model->load(yii::$app->request->post()) && $model->save()) {
+                    $json['result'] = 'success';
+                    $json['value'] = $model->value;
+                    $json['id'] = $model->id;
+                    $json['new'] = true;
+                } else {
+                    $json['result'] = 'fail';
+                }
             }
             
             return json_encode($json);

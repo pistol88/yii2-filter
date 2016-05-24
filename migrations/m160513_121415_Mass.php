@@ -21,6 +21,7 @@ class m160513_121415_Mass extends Migration
             $this->createTable('{{%filter}}', [
                 'id' => Schema::TYPE_PK . "",
                 'name' => Schema::TYPE_STRING . "(255) NOT NULL",
+                'slug' => Schema::TYPE_STRING . "(155) NOT NULL",
                 'description' => Schema::TYPE_TEXT . "",
                 'relation_field_name' => Schema::TYPE_STRING . "(55)",
                 'model_name' => Schema::TYPE_STRING . "(55) NOT NULL",

@@ -19,6 +19,11 @@ class FilterValue extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getVariant()
+    {
+        return $this->hasOne(FilterVariant::className(), ['id' => 'variant_id']);
+    }
+    
     public function attributeLabels()
     {
         return [
