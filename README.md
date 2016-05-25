@@ -11,6 +11,8 @@ Yii2-filter
 * Управление вариантами опций
 * Набор виджетов
 
+![options](https://cloud.githubusercontent.com/assets/8104605/15528166/cfe6a88c-225a-11e6-8667-133de2da2dbe.png)
+
 Установка
 ---------------------------------
 Выполнить команду
@@ -121,10 +123,23 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
         </p>
     <?php } ?> 
 <?php } ?>
+```
 
 Получить значения одной опции по коду:
+```php
 <?=implode(', ', $model->getOption('code'));?>
+```
 
+Чтобы отфильтровать результаты подбора поделей, приняв во внимание данные, отправленные FilterPanel, добавьте вызов filtered:
+
+```php
+$productsFind = Product::find()->where(['category_id' => 11]);
+
+if(Yii::$app->request->get('filter')) {
+    $productsFind = $productsFind->filtered();
+}
+
+$products = $productsFind->all();
 ```
 
 Виджеты
