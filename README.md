@@ -137,5 +137,4 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 <?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id]);?>
 
 * itemId - значение relationFieldName
-* modelName - модель, которая будет фильтроваться
 						
