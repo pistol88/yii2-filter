@@ -9,6 +9,7 @@ use pistol88\filter\models\FilterValue;
 class Filtered extends Behavior
 {
     public $fieldName = 'filter';
+    
     public function filtered()
     {
         $filterIds = Yii::$app->request->get($this->fieldName);
@@ -22,7 +23,7 @@ class Filtered extends Behavior
             $variantCount += count($variantIds);
         }
 
-        $filtered = FilterValue::find()->select('item_id')->groupBy('`item_id`')->andHaving("COUNT(DISTINCT `filter_id`) = $variantCount")->andFilterWhere($condition);
+        $filtered = FilterValue::find()->select('item_id')->groupBy('item_id')->andHaving("COUNT(DISTINCT `filter_id`) = $variantCount")->andFilterWhere($condition);
 
         if($filtered->count() > 0) {
             $this->owner->andWhere(['id' => $filtered]);
