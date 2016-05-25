@@ -18,6 +18,7 @@ class Module extends \yii\base\Module
             $values = $this->relationFieldValues;
             $this->relationFieldValues = $values();
         }
+        
         parent::init();
     }
 }
