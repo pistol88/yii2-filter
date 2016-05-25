@@ -24,7 +24,7 @@ class m160513_121415_Mass extends Migration
                 'slug' => Schema::TYPE_STRING . "(155) NOT NULL",
                 'description' => Schema::TYPE_TEXT . "",
                 'relation_field_name' => Schema::TYPE_STRING . "(55)",
-                'model_name' => Schema::TYPE_STRING . "(55) NOT NULL",
+                'is_filter' => "ENUM('yes', 'no') NULL DEFAULT  'no'",
                 'type' => Schema::TYPE_STRING . "(55) NOT NULL",
                 'relation_field_value' => Schema::TYPE_TEXT . " COMMENT 'PHP serialize'",
                 ], $tableOptions);

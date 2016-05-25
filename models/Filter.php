@@ -16,7 +16,7 @@ class Filter extends \yii\db\ActiveRecord
     public function rules() {
         return [
             [['name', 'slug'], 'required'],
-            [['name', 'type', 'relation_field_name', 'model_name', 'description', 'slug'], 'string'],
+            [['name', 'type', 'relation_field_name', 'description', 'slug', 'is_filter'], 'string'],
         ];
     }
 
@@ -27,8 +27,8 @@ class Filter extends \yii\db\ActiveRecord
             'name' => 'Имя',
             'slug' => 'Код',
             'description' => 'Описание',
+            'is_filter' => 'Фильтр',
             'type' => 'Тип полей',
-            'model_name' => 'Группа',
             'relation_field_name' => 'Название поля',
             'relation_field_value' => 'Привязать к'
         ];

@@ -9,7 +9,6 @@ use yii;
 
 class FilterPanel extends \yii\base\Widget
 {
-    public $modelName = NULL;
     public $itemId = NULL;
     public $filterId = NULL;
     public $itemCssClass = 'item';
@@ -26,7 +25,8 @@ class FilterPanel extends \yii\base\Widget
 
     public function run()
     {
-        $params = ['model_name' => $this->modelName];
+        $params = ['is_filter' => 'yes'];
+        
         if($this->filterId) {
             $params['id'] = $this->filterId;
         }

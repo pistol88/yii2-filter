@@ -20,6 +20,35 @@ $this->params['breadcrumbs'][] = $this->title;
 			'name',
             'slug',
 			[
+				'attribute' => 'category',
+                'label' => 'Категория',
+                'content' => function($model) {
+                    $return = [];
+                    foreach($model->relation_field_value as $category) {
+                        $return[] = Yii::$app->getModule('filter')->relationFieldValues[$category];
+                    }
+                    
+                    return implode(', ', $return);
+                },
+				'filter' => false,
+			],
+			[
+				'attribute' => 'is_filter',
+                'content' => function($model) {
+                    if($model->is_filter == 'yes') {
+                        return 'Да';
+                    } else {
+                        return 'Нет';
+                    }
+                },
+				'filter' => Html::activeDropDownList(
+					$searchModel,
+					'is_filter',
+					['no' => 'Нет', 'yes' => 'Да'],
+					['class' => 'form-control', 'prompt' => 'Фильтр']
+				)
+			],
+			[
 				'attribute' => 'type',
                 'content' => function($model) {
                     if($model->type == 'checkbox') {

@@ -82,9 +82,13 @@ class FilterValueController extends Controller
     {
         $itemId = yii::$app->request->post('item_id');
         $variantId = yii::$app->request->post('variant_id');
+        $filterId = yii::$app->request->post('filter_id');
 
         if($value = FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()) {
             $value->delete();
+        }
+        else {
+            FilterValue::deleteAll(['item_id' => $itemId, 'filter_id' => $filterId]);
         }
 
         return json_encode(['result' => 'success']);

@@ -18,12 +18,12 @@ use yii\widgets\ActiveForm;
                         'multiple' => 'true'
                     ]) ?>
 
-            <?= $form->field($model, 'model_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationModel])->label(false); ?>
             <?= $form->field($model, 'relation_field_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationFieldName])->label(false); ?>
         </div>
         <div class="col-lg-6">
             <?= $form->field($model, 'name')->textInput() ?>
             <?= $form->field($model, 'slug')->textInput() ?>
+            <?= $form->field($model, 'is_filter')->dropdownList(['no' => 'Нет', 'yes' => 'Да']) ?>
             <?= $form->field($model, 'type')->dropdownList(Yii::$app->getModule('filter')->types) ?>
             <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
             <div class="form-group">

@@ -46,7 +46,6 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
         //...
         'filter' => [
             'class' => 'pistol88\filter\Module',
-            'relationModel' => 'common\models\Product', //Модель, которой будут присвоены опции
             'relationFieldName' => 'category_id', //Наименование поля, по значению которого будут привязыватья опции
             //callback функция, которая возвращает варианты relationFieldName
             'relationFieldValues' =>
@@ -134,8 +133,8 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 Блок выбора значений для опций модели $model (опция будет выведена, только если к данной модели через поле relationFieldName привязаны какие-то опции)
 <?=\pistol88\filter\widgets\Choice::widget(['model' => $model]);?>
 
-Вывод блока с фильтрами (галочки, радиобаттоны и т.д.).
-<?=\pistol88\filter\widgets\FilterPanel::widget(['modelName' => 'common\models\Product', 'itemId' => $model->id]);?>
+Вывод блока с фильтрами (галочки, радиобаттоны и т.д.). Передается идентификатор, к которому привязаны фильтры по полю relationFieldName (чаще всего - ID категори)
+<?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id]);?>
 
 * itemId - значение relationFieldName
 * modelName - модель, которая будет фильтроваться

@@ -75,7 +75,8 @@ class AttachFilterValues extends Behavior
     {
         $model = $this->owner;
         $return = [];
-        $filters = Filter::find()->where(['model_name' => $model::className()])->all();
+        $filters = Filter::find()->all();
+        
         foreach($filters as $filter) {
             $field = $filter->relation_field_name;
             $show = false;

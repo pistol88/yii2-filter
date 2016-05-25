@@ -3,18 +3,18 @@ namespace pistol88\filter\assets;
 
 use yii\web\AssetBundle;
 
-class BackendAsset extends AssetBundle
+class VariantsAsset extends AssetBundle
 {
     public $depends = [
         'pistol88\filter\assets\Asset'
     ];
 
     public $js = [
-        'js/backend.js',
+        'js/variants.js',
     ];
 
     public $css = [
-        'css/styles.css',
+        'css/variants.css',
     ];
 
     public function init()

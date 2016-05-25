@@ -7,8 +7,12 @@ pistol88.filter = {
     csrf_token: '',
     init: function() {
         $(document).on('change', '.pistol88-filter input, .pistol88-filter select', this.choiceVariant);
-
         $(document).on('click', '.pistol88-filter .new-variant button', this.addVariant);
+        $(document).on('keypress', '.pistol88-filter .new-variant input', function(e) {
+            if(e.which == 13) {
+                $(this).siblings('button').click();
+            }
+        });
         pistol88.filter.csrf_param = $('meta[name="csrf-param"]').attr('content');
         pistol88.filter.csrf_token = $('meta[name="csrf-token"]').attr('content');
     },
@@ -34,8 +38,9 @@ pistol88.filter = {
                     $(input).val('');
                     $(input).css('opacity', 1);
 
-                    $(input).parent('div').siblings('ul').append('<li><input checked="checked" type="checkbox" id="filtervariant'+json.id+'" name="variant" value="1" data-id="'+json.id+'"> <label for="filtervariant'+json.id+'">'+value+'</label></li>');
-                    if(!json.new) {
+                    $(input).parent('div').siblings('ul.filter-data-container').append('<li><input checked="checked" type="checkbox" id="filtervariant'+json.id+'" name="variant" value="1" data-id="'+json.id+'"> <label for="filtervariant'+json.id+'">'+value+'</label></li>');
+                    
+                    if(json.new) {
                         $(input).parent('div').siblings('.filter-data-container').find('select').append('<option value="'+json.id+'">'+value+'</option>').val(json.id).change();
                     }
                     else {
@@ -61,12 +66,10 @@ pistol88.filter = {
         var update_action = $(this).parents('.filter-data-container').data('update-action');
         var delete_action = $(this).parents('.filter-data-container').data('delete-action');
 
-        //$(li).css('opacity', '0.3');
-
         if($(this).is('select')) {
             variant_id = $(this).val();
             if(variant_id <= 0) {
-                $.post(delete_action, {variant_id: variant_id, item_id: item_id},
+                $.post(delete_action, {filter_id: filter_id, variant_id: variant_id, item_id: item_id},
                     function(json) {
                         if(json.result == 'success') {
                             $(li).css('opacity', '1');

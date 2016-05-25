@@ -5,7 +5,6 @@ use yii;
 
 class Module extends \yii\base\Module
 {
-    public $relationModel = null;
     public $relationFieldName = null;
     public $relationFieldValues = [];
     public $relationFieldValuesCallback = '';

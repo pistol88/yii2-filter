@@ -6,7 +6,6 @@ use pistol88\filter\models\FilterVariants;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use kartik\select2\Select2;
 use Yii;
 
 class Choice extends \yii\base\Widget
@@ -15,8 +14,6 @@ class Choice extends \yii\base\Widget
 
     public function init()
     {
-        \pistol88\filter\assets\BackendAsset::register($this->getView());
-        
         parent::init();
     }
 
@@ -25,16 +22,16 @@ class Choice extends \yii\base\Widget
         $return = [];
         $model = $this->model;
 
-        foreach($model->getFilters() as $filter) {
+        foreach($model->filters as $filter) {
             $row = $this->renderFilter($filter);
-            $return[] = Html::tag('div', implode('', $row), ['class' => 'row']);
+            $return[] = Html::tag('div', implode('', $row), ['class' => ' panel panel-default']);
         }
 
         if(empty($return)) {
             return null;
         }
         
-        return Html::tag('div', implode('<hr>', $return), ['class' => 'pistol88-filter']);
+        return Html::tag('div', implode('', $return), ['class' => 'pistol88-filter']);
     }
     
     private function renderFilter($filter)
@@ -42,12 +39,12 @@ class Choice extends \yii\base\Widget
         $model = $this->model;
         
         $row = [];
-
-        $row[] = Html::tag('div', Html::tag('strong', $filter->name . ': '), ['class' => 'col-lg-3']);
+        
+        $row[] = Html::tag('div', Html::tag('strong', $filter->name), ['class' => 'panel-heading']);
 
         $variants = [];
 
-        $variantsList = $filter->variants;
+        
         $options = [
             'class' => 'form-group option-variants filter-data-container',
             'data-item-id' => $model->id,
@@ -56,58 +53,16 @@ class Choice extends \yii\base\Widget
             'data-create-action' => Url::toRoute(['/filter/filter-value/create']),
             'data-update-action' => Url::toRoute(['/filter/filter-value/update']),
         ];
+        
         if($filter->type == 'radio') {
-            $variantsList = ArrayHelper::map($variantsList, 'id', 'value');
-            $variantsList[0] = '-';
-            ksort($variantsList);
-
-            $checked = false;
-            foreach($variantsList as $variantId => $value) {
-                if($this->model->checkedId($variantId)) {
-                    $checked = $variantId;
-                    break;
-                }
-            }
-
-            $select = Select2::widget([
-                'name' => 'choise-option',
-                'value' => $checked,
-                'data' => $variantsList,
-                'language' => 'ru',
-                'options' => ['placeholder' => 'Выберите значение ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]);
-            $variants[] = Html::tag('div', $select, $options);
+            $variants[] = types\Select::widget(['filter' => $filter, 'model' => $this->model, 'options' => $options]);
         } else {
-            $options['class'] .= ' filter-variants';
-            $options['item'] = function($item, $index) {
-                return $this->variant($item);
-            };
-            $variants[] = Html::ul($variantsList, $options);
+            $variants[] = types\Checkbox::widget(['filter' => $filter, 'model' => $this->model, 'options' => $options]);
         }
 
-        $new = [];
-        $new[] = Html::input('text', 'variant_value', '', ['placeholder' => 'Новый вариант', 'data-filter-id' => $filter->id, 'data-create-action' => Url::toRoute(['/filter/filter-variant/create']), 'class' => ' form-control']);
-        $new[] = Html::button(Html::tag('i', '', ['class' => 'glyphicon glyphicon-plus']), ['class' => 'btn btn-success']);
+        $row[] = Html::tag('div', implode('', $variants), ['class' => 'panel-body']);
         
-        $variants[] = Html::tag('div', implode('', $new), ['class' => 'new-variant']);
-
-        $row[] = Html::tag('div', implode('', $variants), ['class' => 'col-lg-9']);
-            
+        
         return $row;
-    }
-    
-    private function variant($item)
-    {
-        $return = [];
-
-        $checked = $this->model->checkedId($item->id);
-
-        $return[] = Html::checkbox('variant', $checked, ['id' => 'filtervariant'.$item->id, 'data-id' => $item->id]);
-        $return[] = ' ';
-        $return[] = Html::label($item->value, 'filtervariant'.$item->id);
-        return Html::tag('li', implode('', $return));
     }
 }
