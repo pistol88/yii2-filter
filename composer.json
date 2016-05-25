@@ -1,6 +1,6 @@
 {
     "name": "pistol88/yii2-filter",
-    "description": "yii2-filter add options and filter to youre model",
+    "description": "yii2-filter add options and filters to your model",
     "keywords": ["yii2", "yii2", "application", "options", "filter", "module", "pistol88"],
     "homepage": "https://github.com/pistol88/yii2-filter",
     "type": "yii2-extension",
