@@ -38,7 +38,7 @@ class FilterPanel extends \yii\base\Widget
             if(in_array($this->itemId, $filter->selected)) {
                 $block = '';
                 $title = Html::tag('p', $filter->name, ['class' => 'heading']);
-                foreach($filter->getVariants() as $variant) {
+                foreach($filter->variants as $variant) {
                     $checked = false;
                     if($filterData = yii::$app->request->get('filter')) {
                         if(isset($filterData[$filter->id]) && (isset($filterData[$filter->id][$variant->id]) |  $filterData[$filter->id] == $variant->id)) {
