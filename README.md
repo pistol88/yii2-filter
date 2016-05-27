@@ -130,7 +130,7 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 <?=implode(', ', $model->getOption('code'));?>
 ```
 
-Чтобы отфильтровать результаты подбора поделей, приняв во внимание данные, отправленные FilterPanel, добавьте вызов filtered:
+Чтобы отфильтровать результаты подбора поделей, приняв во внимание данные, отправленные виджетом FilterPanel, добавьте вызов filtered:
 
 ```php
 $productsFind = Product::find()->where(['category_id' => 11]);
@@ -140,6 +140,12 @@ if(Yii::$app->request->get('filter')) {
 }
 
 $products = $productsFind->all();
+```
+
+Выбрать все записи по значению опции:
+
+```php
+$productsFind = Product::find()->option('power', 100)->all();
 ```
 
 Виджеты
