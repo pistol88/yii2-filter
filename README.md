@@ -145,7 +145,9 @@ $products = $productsFind->all();
 Выбрать все записи по значению опции:
 
 ```php
-$productsFind = Product::find()->option('power', 100)->all();
+$productsFind = Product::find()->option('power', 100)->all(); //Все записи с power=100
+$productsFind = Product::find()->option('power', 100, '>')->all(); //Все записи с power>100
+$productsFind = Product::find()->option('power', 100, '<')->all(); //Все записи с power<100
 ```
 
 Виджеты
