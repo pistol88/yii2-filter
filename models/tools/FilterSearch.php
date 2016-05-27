@@ -27,6 +27,13 @@ class FilterSearch extends Filter
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => new \yii\data\Sort([
+                'attributes' => [
+                    'name',
+                    'type',
+                    'is_filter',
+                ],
+            ])
         ]);
 
         $this->load($params);

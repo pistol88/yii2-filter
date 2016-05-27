@@ -25,7 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'content' => function($model) {
                     $return = [];
                     foreach($model->relation_field_value as $category) {
-                        $return[] = Yii::$app->getModule('filter')->relationFieldValues[$category];
+                        $fieldValues = Yii::$app->getModule('filter')->relationFieldValues;
+                        if(isset($fieldValues[$category])) {
+                            $return[] = $fieldValues[$category];
+                        }
                     }
                     
                     return implode(', ', $return);
