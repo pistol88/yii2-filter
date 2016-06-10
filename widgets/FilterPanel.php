@@ -41,6 +41,8 @@ class FilterPanel extends \yii\base\Widget
         $filters = Filter::find()->andWhere($params)->all();
         
         $return = [];
+        $haveVariants = false;
+        
         foreach($filters as $filter) {
             if(in_array($this->itemId, $filter->selected)) {
                 $block = '';
@@ -53,6 +55,7 @@ class FilterPanel extends \yii\base\Widget
                 }
 
                 foreach($variants as $variant) {
+                    $haveVariants = true;
                     $checked = false;
                     if($filterData = yii::$app->request->get('filter')) {
                         if(isset($filterData[$filter->id]) && (isset($filterData[$filter->id][$variant->id]) |  $filterData[$filter->id] == $variant->id)) {
@@ -79,6 +82,10 @@ class FilterPanel extends \yii\base\Widget
             
         }
 
+        if(!$haveVariants) {
+            return null;
+        }
+        
         if($return) $return[] = Html::input('submit', '', $this->submitButtonValue, ['class' => 'btn btn-submit']);
         
         return Html::tag('form', implode('', $return), ['data-resulthtmlselector' => $this->resultHtmlSelector, 'name' => 'pistol88-filter', 'action' => '', 'class' => 'pistol88-filter']);
