@@ -103,6 +103,7 @@ class AttachFilterValues extends Behavior
     {
         $return = [];
         $variantFilters = $this->owner->filterVariants();
+
         foreach($this->owner->filters as $filter) {
             foreach($filter->variants as $variant) {
                 if(isset($variantFilters[$variant->id])) {

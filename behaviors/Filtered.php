@@ -44,7 +44,7 @@ class Filtered extends Behavior
         return $this->filtered($filterIds, 2);
     }
     
-    public function filtered($filterIds = false, $mode = 1)
+    public function filtered($filterIds = false, $mode = 0)
     {
         if(!$filterIds) {
             $filterIds = Yii::$app->request->get($this->fieldName);

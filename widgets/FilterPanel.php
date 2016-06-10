@@ -14,13 +14,20 @@ class FilterPanel extends \yii\base\Widget
     public $itemCssClass = 'item';
     public $fieldName = 'filter';
     public $blockCssClass = 'block';
+    public $findModel = false; //::find() модели, по которой будем искать соответствия
+    public $ajaxLoad = false; //Ajax подгрузка результатов
+    public $resultHtmlSelector = null; //CSS селектор, который хранит результаты
     public $submitButtonValue = 'Показать';
 
     public function init()
     {
         parent::init();
 
-        \pistol88\filter\assets\FrontendAsset::register($this->getView());
+        if($this->ajaxLoad) {
+            \pistol88\filter\assets\FrontendAjaxAsset::register($this->getView());
+        } else {
+            \pistol88\filter\assets\FrontendAsset::register($this->getView());
+        }
     }
 
     public function run()
@@ -38,7 +45,14 @@ class FilterPanel extends \yii\base\Widget
             if(in_array($this->itemId, $filter->selected)) {
                 $block = '';
                 $title = Html::tag('p', $filter->name, ['class' => 'heading']);
-                foreach($filter->variants as $variant) {
+                
+                if($this->findModel) {
+                    $variants = $filter->getVariantsByFindModel($this->findModel)->all();
+                } else {
+                    $variants = $filter->variants;
+                }
+
+                foreach($variants as $variant) {
                     $checked = false;
                     if($filterData = yii::$app->request->get('filter')) {
                         if(isset($filterData[$filter->id]) && (isset($filterData[$filter->id][$variant->id]) |  $filterData[$filter->id] == $variant->id)) {
@@ -65,8 +79,8 @@ class FilterPanel extends \yii\base\Widget
             
         }
 
-        if($return) $return[] = Html::input('submit', 'submit', $this->submitButtonValue, ['class' => 'btn btn-submit']);
+        if($return) $return[] = Html::input('submit', '', $this->submitButtonValue, ['class' => 'btn btn-submit']);
         
-        return Html::tag('form', implode('', $return), ['name' => 'pistol88-filter', 'action' => '', 'class' => 'pistol88-filter']);
+        return Html::tag('form', implode('', $return), ['data-resulthtmlselector' => $this->resultHtmlSelector, 'name' => 'pistol88-filter', 'action' => '', 'class' => 'pistol88-filter']);
     }
 }
