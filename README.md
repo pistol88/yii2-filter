@@ -156,7 +156,7 @@ $productsFind = Product::find()->option('power', 100, '<')->all(); //Все за
 Блок выбора значений для опций модели $model (опция будет выведена, только если к данной модели через поле relationFieldName привязаны какие-то опции)
 <?=\pistol88\filter\widgets\Choice::widget(['model' => $model]);?>
 
-Вывод блока с фильтрами (галочки, радиобаттоны и т.д.). Передается идентификатор, к которому привязаны фильтры по полю relationFieldName (чаще всего - ID категори)
+Вывод блока с фильтрами (галочки, радиобаттоны и т.д.). Передается идентификатор, к которому привязаны фильтры по полю relationFieldName (чаще всего - ID категории)
 <?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id]);?>
 
 * itemId - значение relationFieldName
