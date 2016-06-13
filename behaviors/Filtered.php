@@ -62,8 +62,7 @@ class Filtered extends Behavior
             $condition[] = ['filter_id' => $filterId, 'variant_id' => $variantIds];
             if($mode == 1) {
                 $variantCount += count($variantIds);
-            }
-            else {
+            } else {
                 $variantCount++;
             }
             
