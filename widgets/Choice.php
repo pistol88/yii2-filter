@@ -44,7 +44,6 @@ class Choice extends \yii\base\Widget
 
         $variants = [];
 
-        
         $options = [
             'class' => 'form-group option-variants filter-data-container',
             'data-item-id' => $model->id,
@@ -61,8 +60,7 @@ class Choice extends \yii\base\Widget
         }
 
         $row[] = Html::tag('div', implode('', $variants), ['class' => 'panel-body']);
-        
-        
+
         return $row;
     }
 }
