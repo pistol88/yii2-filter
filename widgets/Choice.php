@@ -1,6 +1,8 @@
 <?php
 namespace pistol88\filter\widgets;
 
+use pistol88\filter\models\Filter;
+use pistol88\filter\models\FilterVariants;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;

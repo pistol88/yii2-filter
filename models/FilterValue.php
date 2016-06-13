@@ -16,6 +16,7 @@ class FilterValue extends \yii\db\ActiveRecord
         return [
             [['filter_id', 'item_id', 'variant_id'], 'required'],
             [['filter_id', 'item_id', 'variant_id'], 'integer'],
+            [['value', 'string']]
         ];
     }
 
@@ -30,7 +31,8 @@ class FilterValue extends \yii\db\ActiveRecord
             'id' => 'ID',
             'filter_id' => 'Фильтр',
             'item_id' => 'Элемент',
-            'variant_id' => 'Вариант'
+            'variant_id' => 'Вариант',
+            'value' => 'Значение',
         ];
     }
 }

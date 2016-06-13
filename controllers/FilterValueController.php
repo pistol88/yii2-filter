@@ -58,8 +58,7 @@ class FilterValueController extends Controller
         
         if(!$model) {
             $model = new FilterValue;
-        }
-        else {
+        } else {
             $filter = Filter::findOne($model->filter_id);
             if($filter->type == 'radio') {
                 FilterValue::deleteAll(['item_id' => $post['item_id'], 'filter_id' => $post['filter_id']]);
@@ -86,8 +85,7 @@ class FilterValueController extends Controller
 
         if($value = FilterValue::find()->where(['item_id' => $itemId, 'variant_id' => $variantId])->one()) {
             $value->delete();
-        }
-        else {
+        } else {
             FilterValue::deleteAll(['item_id' => $itemId, 'filter_id' => $filterId]);
         }
 

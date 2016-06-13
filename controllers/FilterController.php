@@ -74,7 +74,6 @@ class FilterController extends Controller
         if ($model->load(yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-
             $searchModel = new FilterVariantSearch;
 
             $params = yii::$app->request->queryParams;
