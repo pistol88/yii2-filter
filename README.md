@@ -75,8 +75,6 @@ php yii migrate --migrationPath=vendor/pistol88/yii2-filter/migrations
 
 Управление фильтрами: ?r=filter/filter
 
-Настройка
----------------------------------
 Для модели, с которой работает фильтр, добавить поведение:
 
 ```php
