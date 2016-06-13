@@ -22,6 +22,7 @@ class AttachFilterValues extends Behavior
     public function checkedId($id)
     {
         $variantFilters = $this->filterVariants();
+        
         if(isset($variantFilters[$id])) {
             return true;
         } else {
@@ -82,8 +83,7 @@ class AttachFilterValues extends Behavior
             $show = false;
             if (empty($filter->relation_field_value)) {
                 $show = true;
-            }
-            else {
+            } else {
                 foreach ($filter->relation_field_value as $rfv) {
                     if ($model->{$field} == $rfv) {
                         $show = true;
