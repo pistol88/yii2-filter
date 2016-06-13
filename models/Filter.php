@@ -2,8 +2,6 @@
 namespace pistol88\filter\models;
 
 use yii;
-use pistol88\filter\models\FilterVariant;
-use pistol88\filter\models\FieldRelationValue;
 use yii\helpers\ArrayHelper;
 
 class Filter extends \yii\db\ActiveRecord
@@ -40,6 +38,13 @@ class Filter extends \yii\db\ActiveRecord
         return $this->hasMany(FilterVariant::className(), ['filter_id' => 'id']);
     }
 
+    public function getVariantsByFindModel($findModel)
+    {
+        $variantIds = FilterValue::find()->select('variant_id')->distinct()->where(['item_id' => $findModel->select('id')]);
+
+        return $this->hasMany(FilterVariant::className(), ['filter_id' => 'id'])->where(['id' => $variantIds]);
+    }
+    
     public function getSelected()
     {
         return ArrayHelper::map($this->hasMany(FieldRelationValue::className(), ['filter_id' => 'id'])->all(), 'value', 'value');
@@ -62,7 +67,7 @@ class Filter extends \yii\db\ActiveRecord
             $fv->delete();
         }
 		
-		return true;
+        return true;
     }
     
     public function beforeValidate()

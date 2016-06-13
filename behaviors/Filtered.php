@@ -44,7 +44,7 @@ class Filtered extends Behavior
         return $this->filtered($filterIds, 2);
     }
     
-    public function filtered($filterIds = false, $mode = 1)
+    public function filtered($filterIds = false, $mode = 0)
     {
         if(!$filterIds) {
             $filterIds = Yii::$app->request->get($this->fieldName);
@@ -62,8 +62,7 @@ class Filtered extends Behavior
             $condition[] = ['filter_id' => $filterId, 'variant_id' => $variantIds];
             if($mode == 1) {
                 $variantCount += count($variantIds);
-            }
-            else {
+            } else {
                 $variantCount++;
             }
             

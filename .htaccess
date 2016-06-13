@@ -1,5 +1,9 @@
-# Mod_Autoindex 
+# Mod_Autoindex
 <IfModule mod_autoindex.c>
     # Disable Indexes
     Options -Indexes
+<<<<<<< HEAD
 </IfModule>
+=======
+</IfModule>
+>>>>>>> 22fc14c88ebf3e9df1b6dab7facb865231280651
