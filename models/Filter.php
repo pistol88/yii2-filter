@@ -11,7 +11,8 @@ class Filter extends \yii\db\ActiveRecord
         return '{{%filter}}';
     }
 
-    public function rules() {
+    public function rules()
+    {
         return [
             [['name', 'slug'], 'required'],
             [['name', 'type', 'relation_field_name', 'description', 'slug', 'is_filter'], 'string'],
@@ -66,7 +67,7 @@ class Filter extends \yii\db\ActiveRecord
             $fv->delete();
         }
 		
-		return true;
+        return true;
     }
     
     public function beforeValidate()
@@ -83,8 +84,7 @@ class Filter extends \yii\db\ActiveRecord
             }
 
             $this->relation_field_value = serialize($values);
-        }
-        else {
+        } else {
             $this->relation_field_value = serialize([]);
         }
         
