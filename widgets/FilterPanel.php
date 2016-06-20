@@ -74,13 +74,19 @@ class FilterPanel extends \yii\base\Widget
                     $field .= Html::label($variant->value, "variant{$variant->id}");
                     $block .= Html::tag('div', $field);
                 }
-                $return[] = Html::tag('div', $title.$block, ['class' => $this->blockCssClass]);
+                
+                if(!empty($variants)) {
+                    $return[] = Html::tag('div', $title.$block, ['class' => $this->blockCssClass]);
+                }
             }
-            
         }
 
-        if($return) $return[] = Html::input('submit', '', $this->submitButtonValue, ['class' => 'btn btn-submit']);
+        if($return) {
+            $return[] = Html::input('submit', '', $this->submitButtonValue, ['class' => 'btn btn-submit']);
+            
+            return Html::tag('form', implode('', $return), ['data-resulthtmlselector' => $this->resultHtmlSelector, 'name' => 'pistol88-filter', 'action' => '', 'class' => 'pistol88-filter']);
+        }
         
-        return Html::tag('form', implode('', $return), ['data-resulthtmlselector' => $this->resultHtmlSelector, 'name' => 'pistol88-filter', 'action' => '', 'class' => 'pistol88-filter']);
+        return null;
     }
 }
