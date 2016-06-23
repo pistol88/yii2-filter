@@ -22,6 +22,7 @@ class m160513_121415_Mass extends Migration
                 'id' => Schema::TYPE_PK . "",
                 'name' => Schema::TYPE_STRING . "(255) NOT NULL",
                 'slug' => Schema::TYPE_STRING . "(155) NOT NULL",
+                'sort' => Schema::TYPE_INTEGER . "(11)",
                 'description' => Schema::TYPE_TEXT . "",
                 'relation_field_name' => Schema::TYPE_STRING . "(55)",
                 'is_filter' => "ENUM('yes', 'no') NULL DEFAULT  'no'",

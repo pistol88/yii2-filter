@@ -58,8 +58,22 @@ class Filtered extends Behavior
         $variantCount = 0;
         $filterCount = count($filterIds);
 
-        foreach($filterIds as $filterId => $variantIds) {
+        foreach($filterIds as $filterId => $value) {
+            $filter = Filter::findOne($filterId);
+            if($filter->type == 'range') {
+                $value = explode(';', $value);
+                if($value[0] != $value[1]) {
+                    $variants = FilterVariant::find()->where('filter_id = :filterId AND (numeric_value >= :min AND numeric_value <= :max)', [':filterId' => $filterId, ':min' => $value[0], ':max' => $value[1]])->select('id')->all();
+                } else {
+                    $variants = FilterVariant::find()->where('filter_id = :filterId AND numeric_value = :value', [':filterId' => $filterId, ':value' => $value[0]])->select('id')->all();
+                }
+                $variantIds = ArrayHelper::map($variants, 'id', 'id');
+            } else {
+                $variantIds = $value;
+            }
+            
             $condition[] = ['filter_id' => $filterId, 'variant_id' => $variantIds];
+
             if($mode == 1) {
                 $variantCount += count($variantIds);
             } else {

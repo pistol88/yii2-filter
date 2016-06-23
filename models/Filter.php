@@ -15,6 +15,7 @@ class Filter extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'slug'], 'required'],
+            [['sort'], 'integer'],
             [['name', 'type', 'relation_field_name', 'description', 'slug', 'is_filter'], 'string'],
         ];
     }
@@ -25,6 +26,7 @@ class Filter extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Имя',
             'slug' => 'Код',
+            'sort' => 'Сортировка',
             'description' => 'Описание',
             'is_filter' => 'Фильтр',
             'type' => 'Тип полей',

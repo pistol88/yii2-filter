@@ -8,7 +8,7 @@ class Module extends \yii\base\Module
     public $relationFieldName = null;
     public $relationFieldValues = [];
     public $relationFieldValuesCallback = '';
-    public $types = ['radio' => 'Один вариант', 'checkbox' => 'Много вариантов'];
+    public $types = ['radio' => 'Один вариант', 'checkbox' => 'Много вариантов', 'range' => 'Промежуток'];
     public $adminRoles = ['superadmin', 'admin'];
 
     public function init()

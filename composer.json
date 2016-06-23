@@ -20,7 +20,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "2amigos/yii2-grid-view-library": "*",
-        "kartik-v/yii2-widget-select2": "*"
+        "kartik-v/yii2-widget-select2": "*",
+        "yii2mod/yii2-ion-slider": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
