@@ -3,6 +3,7 @@ namespace pistol88\filter\widgets;
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use pistol88\filter\models\Filter;
 use pistol88\filter\models\FieldRelationValue;
 use yii2mod\slider\IonSlider;
@@ -92,6 +93,14 @@ class FilterPanel extends \yii\base\Widget
                             'step' => round($max/count($variants)),
                         ]
                     ]);
+                } elseif($filter->type == 'select') {
+                    $fieldName = $this->fieldName.'['.$filter->id.']';
+                    
+                    $value = yii::$app->request->get($this->fieldName)[$filter->id];
+                    
+                    $variantsList = ArrayHelper::map($variants, 'id', 'value');
+                    
+                    $block = Html::dropDownList($fieldName, $value, $variantsList, ['class' => 'form-control']);
                 } else {
                     foreach($variants as $variant) {
                         $checked = false;

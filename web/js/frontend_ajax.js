@@ -5,7 +5,7 @@ if (typeof pistol88 == "undefined" || !pistol88) {
 pistol88.filterAjax = {
     rangeDelay: false,
     init: function() {
-        $(document).on('change', '.pistol88-filter input[type=checkbox], .pistol88-filter input[type=radio]', this.renderResults);
+        $(document).on('change', '.pistol88-filter select, .pistol88-filter input[type=checkbox], .pistol88-filter input[type=radio]', this.renderResults);
         $(document).on('change', '.pistol88-filter input[type=text]', function() {
             if(pistol88.filterAjax.rangeDelay) {
                 clearTimeout(pistol88.filterAjax.rangeDelay);
