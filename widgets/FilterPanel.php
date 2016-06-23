@@ -79,6 +79,12 @@ class FilterPanel extends \yii\base\Widget
                         $to = $values[1];
                     }
                     
+                    if(!empty($variants)) {
+                        $step = round($max/count($variants));
+                    } else {
+                        $step = 1;
+                    }
+
                     $block = IonSlider::widget([
                         'name' => $fieldName,
                         'value' => $value,
@@ -90,7 +96,7 @@ class FilterPanel extends \yii\base\Widget
                             'max' => $max,
                             'from' => $from,
                             'to' => $to,
-                            'step' => round($max/count($variants)),
+                            'step' => $step,
                         ]
                     ]);
                 } elseif($filter->type == 'select') {
