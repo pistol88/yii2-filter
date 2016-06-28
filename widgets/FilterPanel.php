@@ -104,9 +104,15 @@ class FilterPanel extends \yii\base\Widget
                     
                     $value = yii::$app->request->get($this->fieldName)[$filter->id];
                     
+                    $variantsListWithNull = ['' => '-'];
+                    
                     $variantsList = ArrayHelper::map($variants, 'id', 'value');
                     
-                    $block = Html::dropDownList($fieldName, $value, $variantsList, ['class' => 'form-control']);
+                    foreach($variantsList as $id => $value) {
+                        $variantsListWithNull[$id] = $value;
+                    }
+                    
+                    $block = Html::dropDownList($fieldName, $value, $variantsListWithNull, ['class' => 'form-control']);
                 } else {
                     foreach($variants as $variant) {
                         $checked = false;
