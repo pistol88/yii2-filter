@@ -32,7 +32,7 @@ class AttachFilterValues extends Behavior
     
     public function getOption($code)
     {
-        if(is_array($this->filterOptions[$code])) {
+        if(isset($this->filterOptions[$code]) && is_array($this->filterOptions[$code])) {
             return $this->filterOptions[$code];
         }
         

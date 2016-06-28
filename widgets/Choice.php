@@ -40,7 +40,7 @@ class Choice extends \yii\base\Widget
         
         $row = [];
         
-        $row[] = Html::tag('div', Html::tag('strong', $filter->name), ['class' => 'panel-heading']);
+        $row[] = Html::tag('div', Html::tag('strong', "$filter->name ($filter->slug)"), ['class' => 'panel-heading']);
 
         $variants = [];
 
