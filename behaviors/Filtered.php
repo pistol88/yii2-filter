@@ -21,6 +21,10 @@ class Filtered extends Behavior
 
         $filter = Filter::findOne(['slug' => $key]);
 
+        if(!$filter) {
+            throw new \yii\base\Exception('Filter do not find');
+        }
+        
         $numeric_value = (int)current($value);
         
         if($sign == '=') {
@@ -60,7 +64,7 @@ class Filtered extends Behavior
 
         foreach($filterIds as $filterId => $value) {
             $filter = Filter::findOne($filterId);
-            if($filter->type == 'range') {
+            if($filter->type == 'range' && is_string($value)) {
                 $value = explode(';', $value);
                 if($value[0] != $value[1]) {
                     $variants = FilterVariant::find()->where('filter_id = :filterId AND (numeric_value >= :min AND numeric_value <= :max)', [':filterId' => $filterId, ':min' => $value[0], ':max' => $value[1]])->select('id')->all();
