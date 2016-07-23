@@ -21,7 +21,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "2amigos/yii2-grid-view-library": "*",
         "kartik-v/yii2-widget-select2": "*",
-        "pistol88/yii2-gallery": "*"
+        "pistol88/yii2-gallery": "*",
+        "yii2mod/yii2-ion-slider": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
