@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-			'name',
+            'name',
             'slug',
-			[
-				'attribute' => 'category',
+            [
+                'attribute' => 'category',
                 'label' => 'Категория',
                 'content' => function($model) {
                     $return = [];
@@ -33,10 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     
                     return implode(', ', $return);
                 },
-				'filter' => false,
-			],
-			[
-				'attribute' => 'is_filter',
+                'filter' => false,
+            ],
+            [
+                'attribute' => 'is_filter',
                 'content' => function($model) {
                     if($model->is_filter == 'yes') {
                         return 'Да';
@@ -44,15 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         return 'Нет';
                     }
                 },
-				'filter' => Html::activeDropDownList(
-					$searchModel,
-					'is_filter',
-					['no' => 'Нет', 'yes' => 'Да'],
-					['class' => 'form-control', 'prompt' => 'Фильтр']
-				)
-			],
-			[
-				'attribute' => 'type',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'is_filter',
+                    ['no' => 'Нет', 'yes' => 'Да'],
+                    ['class' => 'form-control', 'prompt' => 'Фильтр']
+                )
+            ],
+            [
+                'attribute' => 'type',
                 'content' => function($model) {
                     if($model->type == 'checkbox') {
                         return 'Много вариантов';
@@ -60,13 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         return 'Один вариант';
                     }
                 },
-				'filter' => Html::activeDropDownList(
-					$searchModel,
-					'type',
-					yii::$app->getModule('filter')->types,
-					['class' => 'form-control', 'prompt' => 'Тип']
-				)
-			],
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'type',
+                    yii::$app->getModule('filter')->types,
+                    ['class' => 'form-control', 'prompt' => 'Тип']
+                )
+            ],
             'description',
             ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}',  'buttonOptions' => ['class' => 'btn btn-default'], 'options' => ['style' => 'width: 110px;']],
         ],
