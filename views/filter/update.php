@@ -45,6 +45,33 @@ $this->params['breadcrumbs'][] = 'Обновление';
                                 'mode' => 'inline',
                             ],
                         ],
+                        [
+                            'attribute' => 'image',
+                            'filter' => false,
+                            'content' => function($model) {
+                                $form = '<div class="modal-dialog"><div class="modal-content"><div class="modal-body">'.$this->render('_form_variant', ['model' => $model]).'</div></div></div>';
+                                
+                                if($model->hasImage()) {
+                                    $anchor = Html::img($model->getImage()->getUrl('x50'), ['width' => '50']);
+                                } else {
+                                    $anchor = 'Загрузить картинку';
+                                }
+                                
+                                $link = Html::a($anchor, "#variantForm{$model->id}", ['data-toggle' => 'modal', 'data-target' => "#variantForm{$model->id}"]);
+                                
+                                $window = Html::tag(
+                                    'div',
+                                    $form,
+                                    [
+                                        'class' => 'modal fade',
+                                        'id' => "variantForm{$model->id}",
+                                        'role' => 'dialog'
+                                    ]
+                                );
+                            
+                                return $link.$window;
+                            }
+                        ],
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => '{delete}',
                         'buttons' => [
@@ -63,3 +90,4 @@ $this->params['breadcrumbs'][] = 'Обновление';
         </div>
     </div>
 </div>
+

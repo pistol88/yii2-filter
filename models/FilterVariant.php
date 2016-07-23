@@ -6,6 +6,16 @@ use yii;
 
 class FilterVariant extends \yii\db\ActiveRecord
 {
+    function behaviors()
+    {
+        return [
+            'images' => [
+                'class' => 'pistol88\gallery\behaviors\AttachImages',
+                'mode' => 'single',
+            ],
+        ];
+    }
+    
     public static function tableName()
     {
         return '{{%filter_variant}}';
@@ -27,6 +37,7 @@ class FilterVariant extends \yii\db\ActiveRecord
             'filter_id' => 'Фильтр',
             'value' => 'Значение',
             'numeric_value' => 'Числовое значение',
+            'image' => 'Картинка',
         ];
     }
 
@@ -42,6 +53,7 @@ class FilterVariant extends \yii\db\ActiveRecord
         if(empty($this->numeric_value)) {
             $this->numeric_value = (int)$this->value;
         }
+        
         return true;
     }
 }

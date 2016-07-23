@@ -20,7 +20,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "2amigos/yii2-grid-view-library": "*",
-        "kartik-v/yii2-widget-select2": "*"
+        "kartik-v/yii2-widget-select2": "*",
+        "pistol88/yii2-gallery": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

@@ -88,6 +88,17 @@ class FilterVariantController extends Controller
         return $this->redirect(['/filter/filter/update', 'id' => $model->filter_id]);
     }
 
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/filter/filter/update', 'id' => $model->filter_id]);
+        } else {
+            throw new NotFoundHttpException('Не удалось проверить данные.');
+        }
+    }
+    
     protected function findModel($id)
     {
         if (($model = FilterVariant::findOne($id)) !== null) {

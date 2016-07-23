@@ -11,7 +11,7 @@ class AttachFilterValues extends Behavior
 {
     private $filterVariants = null;
     private $filterOptions = null;
-
+    
     public function events()
     {
         return [
@@ -30,7 +30,7 @@ class AttachFilterValues extends Behavior
         }
     }
     
-    public function getOption($code)
+    public function getOption($code, $full = false)
     {
         if(is_array($this->filterOptions[$code])) {
             return $this->filterOptions[$code];
@@ -40,7 +40,11 @@ class AttachFilterValues extends Behavior
             $values = FilterValue::findAll(['filter_id' => $filter->id, 'item_id' => $this->owner->id]);
 
             foreach($values as $value) {
-                $this->filterOptions[$filter->slug][] = $value->variant->value;
+                if($full) {
+                    $this->filterOptions[$filter->slug][] = $value->variant;
+                } else {
+                    $this->filterOptions[$filter->slug][] = $value->variant->value;
+                }
             }
         }
         
