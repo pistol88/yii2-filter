@@ -49,7 +49,6 @@ class m160513_121415_Mass extends Migration
                 'id' => Schema::TYPE_PK . "",
                 'filter_id' => Schema::TYPE_INTEGER . "(11) NOT NULL",
                 'value' => Schema::TYPE_STRING . "(255)",
-                'image' => Schema::TYPE_STRING . "(255)",
                 'numeric_value' => Schema::TYPE_INTEGER . "(11) NOT NULL",
                 ], $tableOptions);
 

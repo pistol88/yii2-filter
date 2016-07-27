@@ -37,7 +37,6 @@ class FilterVariant extends \yii\db\ActiveRecord
             'filter_id' => 'Фильтр',
             'value' => 'Значение',
             'numeric_value' => 'Числовое значение',
-            'image' => 'Картинка',
         ];
     }
 
