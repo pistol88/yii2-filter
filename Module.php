@@ -13,8 +13,7 @@ class Module extends \yii\base\Module
 
     public function init()
     {
-        if(is_callable($this->relationFieldValues))
-        {
+        if(is_callable($this->relationFieldValues)) {
             $values = $this->relationFieldValues;
             $this->relationFieldValues = $values();
         }

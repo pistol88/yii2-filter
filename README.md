@@ -152,10 +152,30 @@ $productsFind = Product::find()->option('power', 100, '<')->all(); //Все за
 ---------------------------------
 
 Блок выбора значений для опций модели $model (опция будет выведена, только если к данной модели через поле relationFieldName привязаны какие-то опции)
+
+```php
 <?=\pistol88\filter\widgets\Choice::widget(['model' => $model]);?>
+```
 
 Вывод блока с фильтрами (галочки, радиобаттоны и т.д.). Передается идентификатор, к которому привязаны фильтры по полю relationFieldName (чаще всего - ID категории)
-<?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id]);?>
 
+```php
+<?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id]);?>
+```
 * itemId - значение relationFieldName
-						
+
+Чтобы фильтрация заработала, необходимо добавить в цепочку вызовов AQ:
+
+```php
+if(Yii::$app->request->get('filter')) {
+    $products = $products->filtered();
+}
+```
+
+Чтобы FilterPanel работал по ajax, необходимо сконфигурировать его следующим образом:
+
+```php
+<?=\pistol88\filter\widgets\FilterPanel::widget(['itemId' => $model->id, 'findModel' => $query, 'ajaxLoad' => true, 'resultHtmlSelector' => '#productsList']);
+```
+
+Где resultHtmlSelector - это CSS селектор элемента, в котором выводятся продукты на странице, findModel - экземпляр AQ продуктов.
