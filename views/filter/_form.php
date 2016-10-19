@@ -11,12 +11,10 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-lg-6">
-            <?= $form->field($model, 'relation_field_value')->dropdownList(
-                    Yii::$app->getModule('filter')->relationFieldValues,
-                    [
-                        'style' => 'height: 290px;',
-                        'multiple' => 'true'
-                    ]) ?>
+            <div class="relationModels">
+                <?= $form->field($model, 'relation_field_value')->checkboxList(
+                        Yii::$app->getModule('filter')->relationFieldValues) ?>
+            </div>
 
             <?= $form->field($model, 'relation_field_name')->hiddenInput(['value' => Yii::$app->getModule('filter')->relationFieldName])->label(false); ?>
         </div>
@@ -36,3 +34,8 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<style>
+.relationModels label {
+    display: block;
+}
+</style>
