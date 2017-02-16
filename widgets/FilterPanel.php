@@ -39,12 +39,17 @@ class FilterPanel extends \yii\base\Widget
         if($this->filterId) {
             $params['id'] = $this->filterId;
         }
-
-        $filters = Filter::find()->orderBy('sort DESC')->andWhere($params)->all();
+        
+        if ($this->itemId) {
+            $filters = Filter::find()->orderBy('sort DESC')->andWhere($params)->all();
+        } else {
+            $filters = Filter::find()->orderBy('sort DESC')->all();
+        }
+            
         
         $return = [];
         foreach($filters as $filter) {
-            if(in_array($this->itemId, $filter->selected)) {
+            if(empty($this->itemId) || in_array($this->itemId, $filter->selected)) {
                 $block = '';
                 $title = Html::tag('p', $filter->name, ['class' => 'heading']);
                 
