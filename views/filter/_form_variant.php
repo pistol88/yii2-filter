@@ -16,7 +16,7 @@ if($model->isNewRecord) {
         <?= $form->field($model, 'filter_id')->hiddenInput()->label(false); ?>
 
         <div class="form-group field-filter-name required">
-            <textarea name="list" class="form-control" style="width: 400px; height: 160px;"></textarea>
+            <textarea required name="list" class="form-control" style="width: 400px; height: 160px;"></textarea>
         </div>
 
         <div class="form-group">
