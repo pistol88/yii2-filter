@@ -20,10 +20,10 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-lg-6">
             <?= $form->field($model, 'name')->textInput() ?>
-            <?= $form->field($model, 'slug')->textInput() ?>
+            <?= $form->field($model, 'slug')->textInput(['label' => 'Идентификатор']) ?>
             <?= $form->field($model, 'sort')->textInput() ?>
-            <?= $form->field($model, 'is_filter')->dropdownList(['no' => 'Нет', 'yes' => 'Да']) ?>
-            <?= $form->field($model, 'type')->dropdownList(Yii::$app->getModule('filter')->types) ?>
+            <?= $form->field($model, 'is_filter')->dropdownList(['no' => 'Нет', 'yes' => 'Да'])->label('Выводить в фильтре?') ?>
+            <?= $form->field($model, 'type')->dropdownList(Yii::$app->getModule('filter')->types)->label('Тип фильтрации на сайте') ?>
             <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
             <div class="form-group">
                 <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

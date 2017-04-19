@@ -35,7 +35,7 @@ if($model->isNewRecord) {
 
         <?= $form->field($model, 'filter_id')->hiddenInput()->label(false); ?>
 
-        <?= $form->field($model, 'value')->textInput(); ?>
+        <?= $form->field($model, 'value')->textInput(['placeholder' => 'Каждый вариант с новой строки']); ?>
 
         <?=\pistol88\gallery\widgets\Gallery::widget(['model' => $model]); ?>
         

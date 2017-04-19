@@ -25,11 +25,11 @@ class Filter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Имя',
-            'slug' => 'Код',
+            'slug' => 'Идентификатор',
             'sort' => 'Сортировка',
             'description' => 'Описание',
             'is_filter' => 'Фильтр',
-            'type' => 'Тип полей',
+            'type' => 'Тип',
             'relation_field_name' => 'Название поля',
             'relation_field_value' => 'Привязать к'
         ];
